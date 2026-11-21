@@ -8,17 +8,26 @@ interface LabPageProps {
   params: { slug: string };
 }
 
+export const dynamic = "force-dynamic";
+
 export async function generateMetadata({ params }: LabPageProps): Promise<Metadata> {
-  const lab = await dbRepository.getLabBySlug(params.slug);
-  if (!lab) {
+  try {
+    const lab = await dbRepository.getLabBySlug(params.slug);
+    if (!lab) {
+      return {
+        title: "Lab Not Found | OneAtlas",
+      };
+    }
     return {
-      title: "Lab Not Found | OneAtlas",
+      title: `${lab.name} AI Models & Timeline | OneAtlas`,
+      description: lab.description || `Explore ${lab.name} models, benchmarks, and release history on OneAtlas.`,
+    };
+  } catch {
+    return {
+      title: "AI Lab Profile | OneAtlas",
+      description: "Explore AI lab models and release history on OneAtlas.",
     };
   }
-  return {
-    title: `${lab.name} AI Models & Timeline | OneAtlas`,
-    description: lab.description || `Explore ${lab.name} models, benchmarks, and release history on OneAtlas.`,
-  };
 }
 
 export default function LabPage({ params }: LabPageProps) {

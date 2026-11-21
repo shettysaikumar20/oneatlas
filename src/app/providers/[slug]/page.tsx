@@ -8,19 +8,28 @@ interface ProviderPageProps {
   params: { slug: string };
 }
 
+export const dynamic = "force-dynamic";
+
 export async function generateMetadata({ params }: ProviderPageProps): Promise<Metadata> {
-  const provider = await dbRepository.getProviderBySlug(params.slug);
-  if (!provider) {
+  try {
+    const provider = await dbRepository.getProviderBySlug(params.slug);
+    if (!provider) {
+      return {
+        title: "Provider Not Found | OneAtlas",
+      };
+    }
     return {
-      title: "Provider Not Found | OneAtlas",
+      title: `${provider.name} Hosted AI Models & Pricing | OneAtlas`,
+      description:
+        provider.description ||
+        `Compare inference pricing, latency, throughput, and hosted LLM models on ${provider.name}.`,
+    };
+  } catch {
+    return {
+      title: "Inference Provider Profile | OneAtlas",
+      description: "Compare inference pricing, latency, and hosted LLM models on OneAtlas.",
     };
   }
-  return {
-    title: `${provider.name} Hosted AI Models & Pricing | OneAtlas`,
-    description:
-      provider.description ||
-      `Compare inference pricing, latency, throughput, and hosted LLM models on ${provider.name}.`,
-  };
 }
 
 export default function ProviderPage({ params }: ProviderPageProps) {
