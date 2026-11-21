@@ -318,6 +318,28 @@ const RAW_MODELS: SeedModelDef[] = [
     ]
   },
   {
+    slug: 'openai-o3-mini',
+    name: 'OpenAI o3-mini',
+    description: 'OpenAI latest state-of-the-art cost-effective reasoning model, providing exceptional STEM, competitive math, and coding abilities with adjustable reasoning effort.',
+    labSlug: 'openai',
+    modelType: 'chat',
+    contextWindow: 200000,
+    maxOutputTokens: 100000,
+    inputPricePerM: 1.10,
+    outputPricePerM: 4.40,
+    releaseDate: '2025-01-31T00:00:00Z',
+    license: 'closed',
+    parameters: 'Confidential',
+    isFeatured: true,
+    capabilities: ['reasoning', 'tool-calling', 'json-mode', 'streaming', 'system-prompt'],
+    modalities: [{ type: 'text', direction: 'input' }, { type: 'text', direction: 'output' }],
+    scores: { mmlu: 92.5, gpqa: 79.7, humaneval: 94.6, 'swe-bench': 49.3, 'math-500': 97.9, 'arc-challenge': 98.2, 'arena-elo': 1358, gsm8k: 98.2 },
+    providers: [
+      { slug: 'openrouter', latencyMs: 850, throughput: 110, uptime: 99.98, isDefault: true },
+      { slug: 'azure', latencyMs: 780, throughput: 125, uptime: 99.99 },
+    ]
+  },
+  {
     slug: 'openai-gpt-4-turbo',
     name: 'GPT-4 Turbo',
     description: 'High-capability predecessor to GPT-4o with robust instruction-following and 128K context window.',

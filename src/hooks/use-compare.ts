@@ -41,7 +41,19 @@ export const useCompareStore = create<CompareStore>()(
     }),
     {
       name: "oneatlas_compare",
-      storage: createJSONStorage(() => localStorage),
+      storage: createJSONStorage(() => {
+        if (typeof window !== "undefined") {
+          return window.localStorage;
+        }
+        return {
+          getItem: () => null,
+          setItem: () => {},
+          removeItem: () => {},
+          clear: () => {},
+          key: () => null,
+          length: 0,
+        };
+      }),
     }
   )
 );
