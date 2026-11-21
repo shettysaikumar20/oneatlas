@@ -35,7 +35,15 @@ const CATEGORY_LINKS = [
   { label: "Under $1.00 / 1M", href: "/models?maxPrice=1", icon: Zap },
 ];
 
-export function HomeView() {
+import { ModelListItem, ModelFacets, Lab, Provider } from "@/types";
+
+interface HomeViewProps {
+  initialModels?: { items: ModelListItem[]; total: number; facets: ModelFacets; page: number; totalPages: number };
+  initialLabs?: { labs: Lab[]; total: number };
+  initialProviders?: { providers: (Provider & { avgLatency: number; avgThroughput: number; avgUptime: number })[]; total: number };
+}
+
+export function HomeView({ initialModels, initialLabs, initialProviders }: HomeViewProps = {}) {
   const router = useRouter();
   const [heroSearch, setHeroSearch] = React.useState("");
 
@@ -48,18 +56,21 @@ export function HomeView() {
   } = useQuery({
     queryKey: ["home-models"],
     queryFn: () => api.getModels({ limit: 60 }),
+    initialData: initialModels,
   });
 
   // Fetch labs for stats & directory strip
   const { data: labsData, isLoading: isLabsLoading } = useQuery({
     queryKey: ["home-labs"],
     queryFn: () => api.getLabs(),
+    initialData: initialLabs,
   });
 
   // Fetch providers for stats
   const { data: providersData, isLoading: isProvidersLoading } = useQuery({
     queryKey: ["home-providers"],
     queryFn: () => api.getProviders(),
+    initialData: initialProviders,
   });
 
   const handleHeroSubmit = (e: React.FormEvent) => {

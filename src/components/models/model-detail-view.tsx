@@ -37,17 +37,21 @@ import { ErrorState } from "@/components/ui/error-state";
 import { useCompareStore } from "@/hooks/use-compare";
 import { formatContext, formatPrice, formatDate } from "@/lib/utils";
 
+import { ModelDetail, ModelListItem } from "@/types";
+
 interface ModelDetailViewProps {
   slug: string;
+  initialData?: { model: ModelDetail; similarModels: ModelListItem[] };
 }
 
-export function ModelDetailView({ slug }: ModelDetailViewProps) {
+export function ModelDetailView({ slug, initialData }: ModelDetailViewProps) {
   const { hasSlug, addSlug, removeSlug } = useCompareStore();
   const [copied, setCopied] = React.useState(false);
 
   const { data, isLoading, isError, refetch } = useQuery({
     queryKey: ["model-detail", slug],
     queryFn: () => api.getModel(slug),
+    initialData,
   });
 
   const model = data?.model;

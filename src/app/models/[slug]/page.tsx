@@ -38,6 +38,16 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   }
 }
 
-export default function ModelDetailPage({ params }: PageProps) {
-  return <ModelDetailView slug={params.slug} />;
+export default async function ModelDetailPage({ params }: PageProps) {
+  let initialData;
+  try {
+    const res = await dbRepository.getModelBySlug(params.slug);
+    if (res?.model) {
+      initialData = res as unknown as { model: any; similarModels: any[] };
+    }
+  } catch {
+    // Falls back gracefully to client-side fetching if server DB is unreachable
+  }
+
+  return <ModelDetailView slug={params.slug} initialData={initialData} />;
 }
