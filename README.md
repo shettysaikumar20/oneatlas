@@ -1,10 +1,17 @@
 # OneAtlas — AI Model Discovery & Intelligence Platform
 
+[![Live App](https://img.shields.io/badge/Live%20Demo-oneatlas--y5z1.vercel.app-10B981?style=for-the-badge&logo=vercel)](https://oneatlas-y5z1.vercel.app/)
+[![GitHub Repo](https://img.shields.io/badge/GitHub-shettysaikumar20%2Foneatlas-181717?style=for-the-badge&logo=github)](https://github.com/shettysaikumar20/oneatlas)
+
 OneAtlas is an enterprise-grade AI model discovery and benchmarking intelligence platform inspired by OpenRouter, RouterPlus, and LiteLLM. Designed with a modern, developer-first UX (clean neutral palette, mono typography, tight borders, responsive layouts), OneAtlas allows developers, AI engineers, and product leaders to explore, filter, compare, benchmark, and evaluate over 88 frontier language models across 12 research labs and 10 inference providers.
+
+🌐 **Live Production URL:** [https://oneatlas-y5z1.vercel.app/](https://oneatlas-y5z1.vercel.app/)
 
 ---
 
 ## 🚀 Live Demo & Key Capabilities
+
+- **Live Production Deployment**: Hosted on Vercel at [https://oneatlas-y5z1.vercel.app/](https://oneatlas-y5z1.vercel.app/) backed by live serverless PostgreSQL on Neon.
 
 - **Model Discovery (`/models`)**: Real-time faceted filtering by lab, provider, modality, model type, license, price range, and context window. All filters, sort criteria, pagination, and view modes (grid/list) are bidirectionally synchronized with URL query parameters for seamless deep-linking and browser navigation.
 - **Deep Model Intelligence (`/models/[slug]`)**: Detailed spec sheets, token pricing breakdown ($/1M tokens input & output), context capacity, multimodal capabilities, provider latency/throughput benchmarks, Recharts performance charts (Bar & Radar), and similar model recommendations.
