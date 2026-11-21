@@ -1498,7 +1498,7 @@ function generateExtendedCatalog(): SeedModelDef[] {
 
   // Additional Specialized Models (to reach 85+ total models)
   const moreFrontier = [
-    { slug: 'openai-o3-mini', name: 'OpenAI o3-mini', lab: 'openai', type: 'chat', ctx: 200000, inPrice: 1.10, outPrice: 4.40, desc: 'Next-generation cost-efficient reasoning model with exceptional STEM, competitive programming, and math pass rates.' },
+    { slug: 'openai-o3-mini-high', name: 'OpenAI o3-mini (High Effort)', lab: 'openai', type: 'chat', ctx: 200000, inPrice: 1.10, outPrice: 4.40, desc: 'Next-generation cost-efficient reasoning model with maximum reasoning effort budget for complex mathematical Olympiad proofs.' },
     { slug: 'openai-gpt-4o-audio-preview', name: 'GPT-4o Audio Preview', lab: 'openai', type: 'multimodal', ctx: 128000, inPrice: 2.50, outPrice: 10.00, desc: 'Direct audio understanding and generation model with nuanced emotive inflection.' },
     { slug: 'anthropic-claude-3-opus-200k', name: 'Claude 3 Opus (Enterprise 200K)', lab: 'anthropic', type: 'chat', ctx: 200000, inPrice: 15.00, outPrice: 75.00, desc: 'Dedicated enterprise instance of Claude 3 Opus with custom telemetry and priority queues.' },
     { slug: 'google-gemini-2-0-pro-exp', name: 'Gemini 2.0 Pro Experimental', lab: 'google', type: 'multimodal', ctx: 2097152, inPrice: 1.50, outPrice: 6.00, desc: 'Frontier experimental version of Gemini 2.0 with superior multi-step agentic problem solving.' },
