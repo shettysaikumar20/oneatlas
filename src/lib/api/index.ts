@@ -108,7 +108,7 @@ export const api = {
   async getRankings(params: { benchmark?: string; category?: string; limit?: number } = {}): Promise<RankingsApiResponse> {
     const searchParams = new URLSearchParams();
     if (params.benchmark) searchParams.set("benchmark", params.benchmark);
-    if (params.category) searchParams.set("category", params.category);
+    if (params.category && params.category !== "all") searchParams.set("category", params.category);
     if (params.limit) searchParams.set("limit", String(params.limit));
     const qs = searchParams.toString();
     return fetchJson<RankingsApiResponse>(`/api/rankings${qs ? `?${qs}` : ""}`);

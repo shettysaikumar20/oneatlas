@@ -226,12 +226,18 @@ export const dbRepository = {
       };
     }
 
-    const models = await prisma.model.findMany({
-      where: {
-        benchmarkScores: {
-          some: { benchmarkId: target.id },
-        },
+    const where: any = {
+      benchmarkScores: {
+        some: { benchmarkId: target.id },
       },
+    };
+
+    if (category && category !== "all") {
+      where.modelType = category.toLowerCase();
+    }
+
+    const models = await prisma.model.findMany({
+      where,
       include: {
         lab: true,
         benchmarkScores: {
@@ -248,6 +254,7 @@ export const dbRepository = {
         const totalCostPerM = m.inputPricePerM + m.outputPricePerM;
         const valueScore = totalCostPerM > 0 ? +(score / totalCostPerM).toFixed(2) : 0;
         return {
+          model: m as unknown as ModelListItem,
           modelId: m.id,
           slug: m.slug,
           name: m.name,
@@ -293,6 +300,7 @@ export const dbRepository = {
         models: {
           orderBy: { releaseDate: "desc" },
           include: {
+            lab: true,
             capabilities: { include: { capability: true } },
             modalities: true,
             providers: { include: { provider: true } },

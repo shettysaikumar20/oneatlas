@@ -24,15 +24,23 @@ export function PricePerformanceScatter({ items, benchmark }: PricePerformanceSc
 
   // Transform data for scatter plot: X = Blended Price ($/1M), Y = Score
   const data = items.map((item) => {
-    const price = +(item.model.inputPricePerM + item.model.outputPricePerM).toFixed(3);
+    const m = item.model || (item as any);
+    const inPrice = m.inputPricePerM ?? (item as any).inputPricePerM ?? 1;
+    const outPrice = m.outputPricePerM ?? (item as any).outputPricePerM ?? 1;
+    const price = +(inPrice + outPrice).toFixed(3);
+    const labName = m.lab?.name ?? (item as any).lab?.name ?? "AI Lab";
+    const labColor = m.lab?.color ?? (item as any).lab?.color ?? "#3b82f6";
+    const modelName = m.name ?? (item as any).name ?? "Model";
+    const license = m.license ?? (item as any).license ?? "open";
+
     return {
-      name: item.model.name,
-      labName: item.model.lab.name,
+      name: modelName,
+      labName,
       price: Math.max(0.01, price),
       score: item.score,
       valueScore: item.valueScore,
-      color: item.model.lab.color || "#3b82f6",
-      license: item.model.license,
+      color: labColor,
+      license,
     };
   });
 

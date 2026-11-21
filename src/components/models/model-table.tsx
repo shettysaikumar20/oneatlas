@@ -55,7 +55,7 @@ export function ModelTable({ models }: ModelTableProps) {
                 {/* 1. Name & Lab */}
                 <td className="py-3.5 px-4">
                   <div className="flex items-center gap-2.5">
-                    <LabAvatar name={model.lab.name} color={model.lab.color} size="sm" />
+                    <LabAvatar name={model.lab?.name || "AI Lab"} color={model.lab?.color} size="sm" />
                     <div className="min-w-0">
                       <div className="flex items-center gap-1.5">
                         <Link
@@ -69,10 +69,10 @@ export function ModelTable({ models }: ModelTableProps) {
                         )}
                       </div>
                       <Link
-                        href={`/labs/${model.lab.slug}`}
+                        href={`/labs/${model.lab?.slug || ""}`}
                         className="text-[11px] text-muted-foreground hover:text-foreground transition-colors"
                       >
-                        {model.lab.name}
+                        {model.lab?.name || "AI Lab"}
                       </Link>
                     </div>
                   </div>

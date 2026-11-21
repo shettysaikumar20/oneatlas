@@ -54,13 +54,13 @@ export function ModelCard({ model, className }: ModelCardProps) {
         {/* Top Header */}
         <div className="flex items-start justify-between gap-3 mb-3">
           <div className="flex items-center gap-2.5 min-w-0">
-            <LabAvatar name={model.lab.name} color={model.lab.color} size="md" />
+            <LabAvatar name={model.lab?.name || "AI Lab"} color={model.lab?.color} size="md" />
             <div className="min-w-0">
               <Link
-                href={`/labs/${model.lab.slug}`}
+                href={`/labs/${model.lab?.slug || ""}`}
                 className="text-xs text-muted-foreground hover:text-foreground transition-colors font-medium block truncate"
               >
-                {model.lab.name}
+                {model.lab?.name || "AI Lab"}
               </Link>
               <h3 className="text-base font-semibold tracking-tight text-foreground group-hover:text-primary transition-colors truncate">
                 <Link href={`/models/${model.slug}`}>

@@ -163,13 +163,21 @@ export function RankingsView() {
                 </thead>
                 <tbody className="divide-y divide-border">
                   {items.map((item) => {
-                    const isCompared = hasSlug(item.model.slug);
+                    const m = item.model || (item as any);
+                    const modelId = m.id || (item as any).modelId || m.slug;
+                    const modelSlug = m.slug || (item as any).slug;
+                    const modelName = m.name || (item as any).name;
+                    const labName = m.lab?.name || (item as any).lab?.name || "AI Lab";
+                    const labColor = m.lab?.color || (item as any).lab?.color;
+                    const inputPrice = m.inputPricePerM ?? (item as any).inputPricePerM ?? 0;
+
+                    const isCompared = hasSlug(modelSlug);
                     const isTopValue = item.valueScore >= bestValueThreshold && item.valueScore > 10;
                     const percentOfMax = Math.round((item.score / maxScore) * 100);
 
                     return (
                       <tr
-                        key={item.model.id}
+                        key={modelId}
                         className="hover:bg-muted/30 transition-colors"
                       >
                         {/* 1. Rank */}
@@ -197,17 +205,17 @@ export function RankingsView() {
                         <td className="py-3.5 px-4">
                           <div className="flex items-center gap-2.5">
                             <LabAvatar
-                              name={item.model.lab.name}
-                              color={item.model.lab.color}
+                              name={labName}
+                              color={labColor}
                               size="sm"
                             />
                             <div>
                               <div className="flex items-center gap-1.5">
                                 <Link
-                                  href={`/models/${item.model.slug}`}
+                                  href={`/models/${modelSlug}`}
                                   className="font-semibold text-foreground hover:text-primary transition-colors"
                                 >
-                                  {item.model.name}
+                                  {modelName}
                                 </Link>
                                 {isTopValue && (
                                   <Badge
@@ -220,7 +228,7 @@ export function RankingsView() {
                                 )}
                               </div>
                               <span className="text-[11px] text-muted-foreground">
-                                {item.model.lab.name}
+                                {labName}
                               </span>
                             </div>
                           </div>
@@ -243,7 +251,7 @@ export function RankingsView() {
 
                         {/* 5. Input Price */}
                         <td className="py-3.5 px-3 font-mono text-foreground">
-                          {formatPrice(item.model.inputPricePerM)}
+                          {formatPrice(inputPrice)}
                         </td>
 
                         {/* 6. Value Metric */}
@@ -262,8 +270,8 @@ export function RankingsView() {
                               className="h-7 w-7"
                               onClick={() =>
                                 isCompared
-                                  ? removeSlug(item.model.slug)
-                                  : addSlug(item.model.slug)
+                                  ? removeSlug(modelSlug)
+                                  : addSlug(modelSlug)
                               }
                               title={isCompared ? "Remove from compare" : "Add to compare"}
                             >
@@ -275,7 +283,7 @@ export function RankingsView() {
                             </Button>
 
                             <Button asChild variant="outline" size="icon" className="h-7 w-7">
-                              <Link href={`/models/${item.model.slug}`} title="View details">
+                              <Link href={`/models/${modelSlug}`} title="View details">
                                 <ArrowUpRight className="h-3.5 w-3.5" />
                               </Link>
                             </Button>
