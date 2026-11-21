@@ -89,19 +89,22 @@ OneAtlas is an enterprise-grade AI model discovery and benchmarking intelligence
 ### 1. Installation
 Clone the repository and install dependencies:
 ```bash
-git clone https://github.com/your-username/oneatlas.git
+git clone https://github.com/shettysaikumar20/oneatlas.git
 cd oneatlas
 npm install
 ```
+
+> **Windows Quick Start**: You can also double-click `start.bat` to automatically check dependencies, generate Prisma client, and start the development server on `http://localhost:3000`.
 
 ### 2. Configure Environment Variables
 Copy `.env.example` to `.env`:
 ```bash
 cp .env.example .env
 ```
-Update `DATABASE_URL` with your PostgreSQL or Neon connection string:
+Update `DATABASE_URL` (pooled) and `DIRECT_URL` (direct) with your Neon connection strings:
 ```env
-DATABASE_URL="postgresql://user:password@ep-example.region.aws.neon.tech/oneatlas?sslmode=require"
+DATABASE_URL="postgresql://[user]:[password]@[neon_hostname]-pooler.[region].aws.neon.tech/[dbname]?sslmode=require"
+DIRECT_URL="postgresql://[user]:[password]@[neon_hostname].[region].aws.neon.tech/[dbname]?sslmode=require"
 ```
 
 ### 3. Push Database Schema & Seed
